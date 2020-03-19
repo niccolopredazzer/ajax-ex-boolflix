@@ -11,7 +11,7 @@ $('#btn-search').click(function(){
     $.ajax({
         url: apiBaseUrl + '/search/movie',
         data: {
-            api_key: 'ea3119af8e41f04cb2df309f65ad9d74',
+            api_key: '',
             query: 'ricerca',
             language: 'it-IT'
         },
