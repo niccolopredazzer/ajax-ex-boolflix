@@ -6,7 +6,7 @@
 
 .container-fullwidth {
     width: 100vw;
-    height: 100vh;      /* da eliminare */
+    min-height: 100vh;
     background-color: #141414;
 }
 
@@ -39,4 +39,33 @@ header {
 
 .search-bar button {
     border-radius: 5px;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+main .cards-container {
+    max-width: 1080px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    height: 300px;
+    width: 150px;
+    margin: 10px;
+    border: 1px solid white;
+}
+
+.card p {
+    color: white;
+}
+
+.card span {
+    color: grey;
 }

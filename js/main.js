@@ -5,8 +5,9 @@ var apiBaseUrl = 'https://api.themoviedb.org/3';
 var source = $("#card-template").html();
 var template = Handlebars.compile(source);
 
-$('.btn-search').click(function(){
+$('#btn-search').click(function(){
     var ricerca = $('#ricerca-input').val();
+    $('#ricerca-input').val('');
     $.ajax({
         url: apiBaseUrl + '/search/movie',
         data: {
@@ -16,7 +17,7 @@ $('.btn-search').click(function(){
         },
         method: 'GET',
         success: function (data) {
-            var films = data.response;
+            var films = data.results;
             for (var i = 0; i < films.length; i++) {
                 var film = films[i];
                 console.log(film);
