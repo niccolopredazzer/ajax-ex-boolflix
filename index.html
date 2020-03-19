@@ -14,18 +14,25 @@
                     <span>BOOLFLIX</span>
                 </div>
                 <div class="search-bar">
-                    <input placeholder="Inserisci un titolo">
+                    <input id="ricerca-input" placeholder="Inserisci un titolo">
                     <button id="btn-search">Search</button>
                 </div>
             </header>
             <main>
                 <div class="cards-container">
-                    <div class="card">
 
-                    </div>
                 </div>
             </main>
         </div>
+
+        <script id="card-template" type="text/x-handlebars-template">
+           <div class="card">
+               <p>Titolo: {{titolo}}</p>
+               <p>Titolo originale: {{titoloOriginale}}</p>
+               <p>Lingua originale: {{linguaOriginale}}</p>
+               <p>Valutazione: {{voto}}</p>
+           </div>
+       </script>
 
         <script src="js/main.js" charset="utf-8"></script>
     </body>
