@@ -64,8 +64,11 @@ main .cards-container {
 
 .card p {
     color: white;
+    margin-bottom: 20px;
 }
 
 .card span {
+    display: inline-block;
     color: grey;
+    margin-bottom: 10px;
 }
