@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Boolflix</title>
+        <script src="https://kit.fontawesome.com/cae5ca4842.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -33,7 +34,8 @@
                    <p>Titolo: {{titolo}}</p>
                    <span>Titolo originale: {{titoloOriginale}}</span>
                    <span>Lingua originale: {{linguaOriginale}}</span>
-                   <span>Valutazione: {{voto}}</span>
+                   <div class="voto-stelle">{{{voto}}}</div>
+                   <span> Voto: {{votoNumero}}</span>
                </div>
            </div>
        </script>

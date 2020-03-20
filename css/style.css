@@ -57,12 +57,20 @@ main .cards-container {
 
 .card {
     height: 300px;
-    width: 150px;
+    width: 200px;
     margin: 10px;
-    border: 1px solid white;
+    border: 1px solid lightgrey;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.card img {
+    display: none;
+}
+
+.testo {
+
 }
 
 .card p {
@@ -71,7 +79,11 @@ main .cards-container {
 }
 
 .card span {
-    display: inline-block;
+    display: block;
     color: grey;
     margin-bottom: 10px;
+}
+
+i {
+    color: white;
 }
