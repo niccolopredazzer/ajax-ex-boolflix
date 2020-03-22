@@ -71,9 +71,11 @@ main .cards-container {
     position: relative;
 }
 
+
 .card .poster .poster-film {
     height: 99%;
     width: 99%;
+    object-fit: contain;
 }
 
 .overlay {
@@ -87,7 +89,7 @@ main .cards-container {
     opacity:0;
     color: white;
     font-size: 20px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .card:hover .overlay {
@@ -97,6 +99,7 @@ main .cards-container {
 
 .testo {
     opacity:0;
+
 }
 
 .testo:hover {
