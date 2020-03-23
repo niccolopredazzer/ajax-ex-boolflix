@@ -18,6 +18,9 @@ $('#btn-search').click(function() {;                  //richiamo la funzione cer
 
 $('#ricerca-input').keypress(function() {           //tasto enter
     if(event.key == 'Enter') {
+        var ricerca = $('#ricerca-input').val();
+        $('#ricerca-input').val('');
+        $('.cards-container').empty();
         cerca(ricerca, 'movie');
         cerca(ricerca, 'tv');
     }
@@ -58,7 +61,7 @@ function creaCard(movies){
                 linguaOriginale: flag(film.original_language),
                 voto: votoStelle(film.vote_average),
                 votoNumero: Math.ceil(film.vote_average/2),
-                poster: posterUrl + "/w342/" + film.poster_path
+                poster: posterCard(film.poster_path)
         };
         var caratteristicheFilm = template(oggettoFilm);        //popolo il template
         $('.cards-container').append(caratteristicheFilm);
@@ -104,9 +107,9 @@ function flag (linguaOriginale) {
 
 function posterCard (path) {
        if (path !== null) {
-           var posterUrl = "https://image.tmdb.org/t/p";
-           return '<img class="cover" src="' + urlBaseCover + 'w342/' + valoreApiCover + '">';
+           var urlImg = "https://image.tmdb.org/t/p";
+           return '<img  src="' + urlImg + 'w342/' + valoreApiCover + '">';
        } else {
-           return '<img class="cover" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
+           return '<img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
        };
    };
