@@ -108,7 +108,7 @@ function flag (linguaOriginale) {
 function posterCard (path) {
        if (path !== null) {
            var urlImg = "https://image.tmdb.org/t/p";
-           return '<img  src="' + urlImg + 'w342/' + valoreApiCover + '">';
+           return '<img  src="' + urlImg + 'w342/' + path + '">';
        } else {
            return '<img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
        };
