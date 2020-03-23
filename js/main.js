@@ -5,6 +5,8 @@
 var source = $("#card-template").html();         //clono template
 var template = Handlebars.compile(source);
 var apiBaseUrl = 'https://api.themoviedb.org/3';
+var urlImg = "https://image.tmdb.org/t/p";
+var coverBaseSize = 'w342/';
 
 
 $('#btn-search').click(function() {;                  //richiamo la funzione cerca al click del bottone
@@ -50,18 +52,23 @@ function cerca(queryRicerca, tipo) {
 }
 
 //funzione per creare il contenuto della card //
-function creaCard(movies){
+function creaCard(movies, tipo){
     for (var i = 0; i < movies.length; i++) {
         var film = movies[i];
+        if (tipo == 'movie') {
+               titolo = film.title;
+               titoloOriginale = film.original_title;
+           } else if (tipo == 'tv') {
+               titolo = film.name;
+               titoloOriginale = film.original_name;
+           }
         var oggettoFilm = {
-                titolo: film.title,
-                titoloSerie: film.name,
-                titoloOriginale: film.original_title,
-                titoloOriginaleSerie: film.original_name,
+                poster: posterCard(film.poster_path),
+                titolo: titolo,
+                titoloOriginale: titoloOriginale,
                 linguaOriginale: flag(film.original_language),
                 voto: votoStelle(film.vote_average),
-                votoNumero: Math.ceil(film.vote_average/2),
-                poster: posterCard(film.poster_path)
+                votoNumero: Math.ceil(film.vote_average/2)
         };
         var caratteristicheFilm = template(oggettoFilm);        //popolo il template
         $('.cards-container').append(caratteristicheFilm);
@@ -101,15 +108,13 @@ function flag (linguaOriginale) {
            bandiera = linguaOriginale;
        }
        return '<img src="https://www.countryflags.io/' + bandiera + '/flat/32.png">'
-   }
+};
 
-// funzione per il poster (incluso il caso in cui non sia disponibile una copertina)
-
-function posterCard (path) {
-       if (path !== null) {
-           var urlImg = "https://image.tmdb.org/t/p";
-           return '<img class="poster-film" src="' + urlImg + 'w342/' + path + '">';
-       } else {
-           return '<img class="poster-film" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
-       };
-   };
+// funzione per il poster (incluso il caso in cui non sia disponibile una copertina) //
+function posterCard(path) {
+     if (path !== null) {
+         return urlImg + coverBaseSize + path;
+     } else {
+         return '<img class="poster-film" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
+     }
+ }

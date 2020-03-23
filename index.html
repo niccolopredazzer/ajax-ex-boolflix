@@ -28,16 +28,14 @@
 
         <script id="card-template" type="text/x-handlebars-template">
            <div class="card">
-               <div class="poster">
-                  {{{poster}}}
-                   <div class="overlay">
-                       <div class="testo">
-                           <p>Titolo: {{titolo}}</p>
-                           <span>Titolo originale: {{titoloOriginale}}</span>
-                           <span>Lingua originale: {{{linguaOriginale}}}</span>
-                           <div class="voto-stelle">{{{voto}}}</div>
-                           <span> Voto: {{votoNumero}}</span>
-                       </div>
+               <img class="poster" src="{{poster}}" >
+               <div class="overlay">
+                   <div class="testo">
+                       <p>Titolo: {{titolo}}</p>
+                       <span>Titolo originale: {{titoloOriginale}}</span>
+                       <span>Lingua originale: {{{linguaOriginale}}}</span>
+                       <div class="voto-stelle">{{{voto}}}</div>
+                       <span> Voto: {{votoNumero}}</span>
                    </div>
                </div>
            </div>
