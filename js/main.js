@@ -4,52 +4,41 @@
 
 var source = $("#card-template").html();         //clono template
 var template = Handlebars.compile(source);
+var apiBaseUrl = 'https://api.themoviedb.org/3';
 
 
+$('#btn-search').click(function() {;                  //richiamo la funzione cerca al click del bottone
+    var ricerca = $('#ricerca-input').val();
+    $('#ricerca-input').val('');
+    $('.cards-container').empty();
+    cerca(ricerca, 'movie');
+    cerca(ricerca, 'tv');
 
-$('#btn-search').click(cercaFilm);                  //richiamo la funzione cerca al click del bottone
-$('#btn-search').click(cercaSerie);                
-$('#ricerca-input').keypress(function() {
+});
+
+$('#ricerca-input').keypress(function() {           //tasto enter
     if(event.key == 'Enter') {
-        cercaFilm();
-        cercaSerie();
+        cerca(ricerca, 'movie');
+        cerca(ricerca, 'tv');
     }
 });
 
 
                     /* funzioni */
 
- //funzione per ricerca dei titoli dei film //
-function cercaFilm() {
-    var apiBaseUrl = 'https://api.themoviedb.org/3';
-    var posterUrl = "https://image.tmdb.org/t/p";
-    var ricerca = $('#ricerca-input').val();
-    $('#ricerca-input').val('');                        //questo mi serve per ripulire l'input
+ //funzione per ricerca  //
+function cerca(queryRicerca, tipo) {
     $.ajax({
-        url: apiBaseUrl + '/search/movie',
+        url: apiBaseUrl + '/search/' + tipo,
         data: {
             api_key: '76b698f438e4ac39c994da7bd8b9076a',
-            query: ricerca,
+            query: queryRicerca,
             language: 'it-IT'
         },
         method: 'GET',
         success: function (data) {
             var films = data.results;
-            $('.cards-container').empty();
-            for (var i = 0; i < films.length; i++) {
-                var film = films[i];
-                var oggettoFilm = {
-                        titolo: film.title,
-                        titoloOriginale: film.original_title,
-                        linguaOriginale: flag(film.original_language),
-                        voto: votoStelle(film.vote_average),
-                        votoNumero: Math.ceil(film.vote_average/2),
-                        poster: posterUrl + "/w342/" + film.poster_path
-                };
-                var caratteristicheFilm = template(oggettoFilm);        //popolo il template
-                $('.cards-container').append(caratteristicheFilm);
-
-            }
+            creaCard(films)
         },
         error: function () {
 
@@ -57,43 +46,26 @@ function cercaFilm() {
     })
 }
 
-// funzione per le serie tv //
-function cercaSerie() {
-    var apiBaseUrl = 'https://api.themoviedb.org/3';
-    var posterUrl = "https://image.tmdb.org/t/p";
-    var ricerca = $('#ricerca-input').val();
-    $('#ricerca-input').val('');                        //questo mi serve per ripulire l'input
-    $.ajax({
-        url: apiBaseUrl + '/search/tv',
-        data: {
-            api_key: '76b698f438e4ac39c994da7bd8b9076a',
-            query: ricerca,
-            language: 'it-IT'
-        },
-        method: 'GET',
-        success: function (data) {
-            var tvShows = data.results;
-            $('.cards-container').empty();
-            for (var i = 0; i < films.length; i++) {
-                var tvShow = tvShows[i];
-                var oggettoShow = {
-                        titolo: tvshow.title,
-                        titoloOriginale: tvshow.original_title,
-                        linguaOriginale: flag(tvshow.original_language),
-                        voto: votoStelle(tvshow.vote_average),
-                        votoNumero: Math.ceil(tvshow.vote_average/2),
-                        poster: posterUrl + "/w342/" + tvshow.poster_path
-                };
-                var caratteristicheTvShow = template(oggettoShow);        //popolo il template
-                $('.cards-container').append(caratteristicheTvShow);
+//funzione per creare il contenuto della card //
+function creaCard(movies){
+    for (var i = 0; i < movies.length; i++) {
+        var film = movies[i];
+        var oggettoFilm = {
+                titolo: film.title,
+                titoloSerie: film.name,
+                titoloOriginale: film.original_title,
+                titoloOriginaleSerie: film.original_name,
+                linguaOriginale: flag(film.original_language),
+                voto: votoStelle(film.vote_average),
+                votoNumero: Math.ceil(film.vote_average/2),
+                poster: posterUrl + "/w342/" + film.poster_path
+        };
+        var caratteristicheFilm = template(oggettoFilm);        //popolo il template
+        $('.cards-container').append(caratteristicheFilm);
 
-            }
-        },
-        error: function () {
+    };
+};
 
-        }
-    })
-}
 
 // funzione per calcolo delle stelle //
 
@@ -127,3 +99,14 @@ function flag (linguaOriginale) {
        }
        return '<img src="https://www.countryflags.io/' + bandiera + '/flat/32.png">'
    }
+
+// funzione per il poster (incluso il caso in cui non sia disponibile una copertina)
+
+function posterCard (path) {
+       if (path !== null) {
+           var posterUrl = "https://image.tmdb.org/t/p";
+           return '<img class="cover" src="' + urlBaseCover + 'w342/' + valoreApiCover + '">';
+       } else {
+           return '<img class="cover" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
+       };
+   };
