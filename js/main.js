@@ -1,38 +1,38 @@
 
 
-
-
 var source = $("#card-template").html();         //clono template
 var template = Handlebars.compile(source);
 var apiBaseUrl = 'https://api.themoviedb.org/3';
-var urlImg = "https://image.tmdb.org/t/p";
-var coverBaseSize = 'w342/';
+var imageUrl = "https://image.tmdb.org/t/p";
 
 
 $('#btn-search').click(function() {;                  //richiamo la funzione cerca al click del bottone
-    var ricerca = $('#ricerca-input').val();
-    $('#ricerca-input').val('');
-    $('.cards-container').empty();
-    cerca(ricerca, 'movie');
-    cerca(ricerca, 'tv');
-
+    cerca();
 });
-
 $('#ricerca-input').keypress(function() {           //tasto enter
     if(event.key == 'Enter') {
-        var ricerca = $('#ricerca-input').val();
-        $('#ricerca-input').val('');
-        $('.cards-container').empty();
-        cerca(ricerca, 'movie');
-        cerca(ricerca, 'tv');
+        cerca();
     }
 });
 
 
                     /* funzioni */
 
+
+function cerca() {
+        var input = $('#ricerca-input').val();
+        $('#ricerca-input').val('');
+        if (input.length > 0) {
+             $('#ricerca-input').empty();
+            apiRicerca(input, 'movie');
+            apiRicerca(input, 'tv');
+        } else {
+            alert('inserisci qualcosa');
+        };
+    };
+
  //funzione per ricerca  //
-function cerca(queryRicerca, tipo) {
+function apiRicerca(queryRicerca, tipo) {
     $.ajax({
         url: apiBaseUrl + '/search/' + tipo,
         data: {
@@ -43,7 +43,7 @@ function cerca(queryRicerca, tipo) {
         method: 'GET',
         success: function (data) {
             var films = data.results;
-            creaCard(films)
+            creaCard(films, tipo)
         },
         error: function () {
 
@@ -52,6 +52,9 @@ function cerca(queryRicerca, tipo) {
 }
 
 //funzione per creare il contenuto della card //
+
+
+
 function creaCard(movies, tipo){
     for (var i = 0; i < movies.length; i++) {
         var film = movies[i];
@@ -63,7 +66,7 @@ function creaCard(movies, tipo){
                titoloOriginale = film.original_name;
            }
         var oggettoFilm = {
-                poster: posterCard(film.poster_path),
+                poster: imageUrl + "/w342/" + film.poster_path,
                 titolo: titolo,
                 titoloOriginale: titoloOriginale,
                 linguaOriginale: flag(film.original_language),
@@ -111,10 +114,10 @@ function flag (linguaOriginale) {
 };
 
 // funzione per il poster (incluso il caso in cui non sia disponibile una copertina) //
-function posterCard(path) {
+/*function posterCard(path) {
      if (path !== null) {
          return urlImg + coverBaseSize + path;
      } else {
          return '<img class="poster-film" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
      }
- }
+ }*/
