@@ -8,7 +8,7 @@ var template = Handlebars.compile(source);
 
 
 $('#btn-search').click(cercaFilm);                  //richiamo la funzione cerca al click del bottone
-$('#btn-search').click(cercaSerie);                //richiamo la funzione cerca al click del bottone
+$('#btn-search').click(cercaSerie);                
 $('#ricerca-input').keypress(function() {
     if(event.key == 'Enter') {
         cercaFilm();
