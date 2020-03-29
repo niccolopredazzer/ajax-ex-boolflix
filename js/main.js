@@ -71,7 +71,8 @@ function creaCard(movies, tipo){
                 titoloOriginale: titoloOriginale,
                 linguaOriginale: flag(film.original_language),
                 voto: votoStelle(film.vote_average),
-                votoNumero: Math.ceil(film.vote_average/2)
+                votoNumero: Math.ceil(film.vote_average/2),
+                overview: film.overview
         };
         var caratteristicheFilm = template(oggettoFilm);        //popolo il template
         $('.cards-container').append(caratteristicheFilm);
