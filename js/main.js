@@ -72,6 +72,7 @@ function creaCard(movies, tipo){
                 linguaOriginale: flag(film.original_language),
                 voto: votoStelle(film.vote_average),
                 votoNumero: Math.ceil(film.vote_average/2),
+                cast: infoAttori(movies[i].id, tipo),
                 overview: film.overview
         };
         var caratteristicheFilm = template(oggettoFilm);        //popolo il template
@@ -82,7 +83,27 @@ function creaCard(movies, tipo){
 
 //funzione per inserire gli attori//
 
+function infoAttori(id, tipo) {
+    var attori = "";
+    $.ajax({
+        url: apiBaseUrl + "/" + tipo + "/" + id + "/credits",
+        method: "GET",
+        data: {
+            api_key: '76b698f438e4ac39c994da7bd8b9076a'
+        },
+        success: function(data) {
+            var nome = data.cast;
+            for (var i = 0; i <= 4; i++) {
+                    attori += nome[i].name;
+            }
+            console.log(attori);
+        },
+        error: function() {
+            alert('errore');
+        }
+    })
 
+}
 
 
 // funzione per calcolo delle stelle //
