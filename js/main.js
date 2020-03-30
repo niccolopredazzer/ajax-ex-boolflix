@@ -72,12 +72,12 @@ function creaCard(movies, tipo){
                 linguaOriginale: flag(film.original_language),
                 voto: votoStelle(film.vote_average),
                 votoNumero: Math.ceil(film.vote_average/2),
-                cast: infoAttori(movies[i].id, tipo),
+                cast: infoAttori(film.id, tipo),
                 overview: film.overview
         };
         var caratteristicheFilm = template(oggettoFilm);        //popolo il template
         $('.cards-container').append(caratteristicheFilm);
-
+        console.log(oggettoFilm.cast);
     };
 };
 
@@ -94,7 +94,7 @@ function infoAttori(id, tipo) {
         success: function(data) {
             var nome = data.cast;
             for (var i = 0; i <= 4; i++) {
-                    attori += nome[i].name;
+                    attori += nome[i].name + ', ';
             }
             console.log(attori);
         },
@@ -102,7 +102,7 @@ function infoAttori(id, tipo) {
             alert('errore');
         }
     })
-
+    return attori;
 }
 
 
@@ -144,6 +144,6 @@ function posterCard(path) {
      if (path !== null) {
          return imageUrl + coverBaseSize + path;
      } else {
-         return '<img class="poster" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1">';
+         return "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1";
      }
  }
