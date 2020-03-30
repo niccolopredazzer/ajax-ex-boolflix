@@ -80,6 +80,10 @@ function creaCard(movies, tipo){
     };
 };
 
+//funzione per inserire gli attori//
+
+
+
 
 // funzione per calcolo delle stelle //
 

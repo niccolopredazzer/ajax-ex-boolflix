@@ -11,11 +11,14 @@
 }
 
 header {
+    width: 100%;
     min-height: 70px;
     background-color: black;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    position: fixed;
+    z-index: 10;
 }
 
 .logo-boolflix{
@@ -50,6 +53,9 @@ main {
     width: 100%;
     display: flex;
     justify-content: center;
+    background-color: #141414;
+    position: absolute;
+    top: 150px;
 }
 
 main .cards-container {
@@ -126,7 +132,7 @@ i {
 }
 
 .card .overview {
-    max-height: 60%;
+    max-height: 50%;
     position: absolute;
     bottom: 0;
     overflow: auto;
