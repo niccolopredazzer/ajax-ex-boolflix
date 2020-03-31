@@ -67,6 +67,7 @@ function creaCard(movies, tipo){
            }
         var oggettoFilm = {
                 poster: posterCard(film.poster_path),
+                id: film.id,
                 titolo: titolo,
                 titoloOriginale: titoloOriginale,
                 linguaOriginale: flag(film.original_language),
@@ -77,14 +78,24 @@ function creaCard(movies, tipo){
         };
         var caratteristicheFilm = template(oggettoFilm);        //popolo il template
         $('.cards-container').append(caratteristicheFilm);
-        console.log(oggettoFilm.cast);
+        //console.log(oggettoFilm.cast);
     };
 };
 
-//funzione per inserire gli attori//
+//funzioni per inserire gli attori//
+
+function callBack(attori, id){
+    var cast = "";
+       for (var i = 0; i <= 4; i++) {
+               cast += attori[i].name + ", ";
+       }
+      $("#"+id).text(cast);
+       //console.log(cast);
+       //return cast;
+ }
+
 
 function infoAttori(id, tipo) {
-    var attori = "";
     $.ajax({
         url: apiBaseUrl + "/" + tipo + "/" + id + "/credits",
         method: "GET",
@@ -92,17 +103,12 @@ function infoAttori(id, tipo) {
             api_key: '76b698f438e4ac39c994da7bd8b9076a'
         },
         success: function(data) {
-            var nome = data.cast;
-            for (var i = 0; i <= 4; i++) {
-                    attori += nome[i].name + ', ';
-            }
-            console.log(attori);
+            callBack(data.cast, id);
         },
         error: function() {
             alert('errore');
         }
     })
-    return attori;
 }
 
 
@@ -143,7 +149,7 @@ function flag (linguaOriginale) {
 function posterCard(path) {
      if (path !== null) {
          return imageUrl + coverBaseSize + path;
-     } else {
+     } else {                   //aggiungo l'indirizzo di una immagine tipo nel caso non ce ne sia una nel database
          return "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flascrucesfilmfest.com%2Fwp-content%2Fuploads%2F2018%2F01%2Fno-poster-available.jpg&f=1&nofb=1";
      }
  }

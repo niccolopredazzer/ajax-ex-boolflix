@@ -27,7 +27,7 @@
         </div>
 
         <script id="card-template" type="text/x-handlebars-template">
-           <div class="card">
+           <div class="card" data-titolo="{{id}}">
                <img class="poster" src="{{poster}}" >
                <div class="overlay">
                    <div class="testo">
@@ -36,7 +36,7 @@
                        <span>Lingua originale: {{{linguaOriginale}}}</span>
                        <div class="voto-stelle">{{{voto}}}</div>
                        <span> Voto: {{votoNumero}}</span>
-                       <span>Cast: {{cast}}</span>
+                       <span id="{{id}}"></span>
                        <div class="overview">
                           <span>{{overview}}</span>
                         </div>
